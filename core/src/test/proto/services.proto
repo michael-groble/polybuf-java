@@ -1,0 +1,7 @@
+option java_package = "polybuf.core.test";
+
+import "no_options.proto";
+
+service Service1 {
+  rpc Request1 (Message1) returns (Message2.Message2A);
+}

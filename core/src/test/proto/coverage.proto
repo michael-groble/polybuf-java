@@ -1,0 +1,184 @@
+import "polybuf.proto";
+package coverage;
+
+option java_package = "polybuf.core.test";
+option (polybuf.file) = {
+  namespace_uri : "http://www.example.org/polybuf-test/coverage" };
+
+// For testing purposes, every scalar and composite type shows up with all three
+// qualifiers (required, optional and repeated)
+// optionals also have both with and without defaults
+// Also, we have nested and unnested elements
+
+
+message Bool {
+  option (polybuf.message) = {rootable : true};
+  required bool required = 1;
+  optional bool optional = 2;
+  optional bool defaulted = 3 [default = true];
+  repeated bool repeated = 4 [packed = true];
+}
+
+message Bytes {
+  option (polybuf.message) = {rootable : true};
+  required bytes required = 1;
+  optional bytes optional = 2;
+  optional bytes defaulted = 3 [default = "default"];
+  repeated bytes repeated = 4;
+}
+
+message Double {
+  option (polybuf.message) = {rootable : true};
+  required double required = 1;
+  optional double optional = 2;
+  optional double defaulted = 3 [default = 1.0];
+  repeated double repeated = 4 [packed = true];
+}
+
+enum Enum1 {
+  A = 0;
+  B = 1;
+  C = 2;
+}
+
+message Enum {
+  option (polybuf.message) = {rootable : true};
+  required Enum1 required = 1;
+  optional Enum1 optional = 2;
+  optional Enum1 defaulted = 3 [default = C];
+  repeated Enum1 repeated = 4;
+}
+
+message NestedEnum {
+  option (polybuf.message) = {rootable : true};
+  enum Nest {
+    X = 0;
+    Y = 1;
+    Z = 2;
+  }
+  required Nest required = 1;
+  optional Nest optional = 2;
+  optional Nest defaulted = 3 [default = Z];
+  repeated Nest repeated = 4;
+}
+
+message Fixed32 {
+  option (polybuf.message) = {rootable : true};
+  required fixed32 required = 1;
+  optional fixed32 optional = 2;
+  optional fixed32 defaulted = 3 [default = 1];
+  repeated fixed32 repeated = 4 [packed = true];
+}
+
+message Fixed64 {
+  option (polybuf.message) = {rootable : true};
+  required fixed64 required = 1;
+  optional fixed64 optional = 2;
+  optional fixed64 defaulted = 3 [default = 1];
+  repeated fixed64 repeated = 4 [packed = true];
+}
+
+message Float {
+  option (polybuf.message) = {rootable : true};
+  required float required = 1;
+  optional float optional = 2;
+  optional float defaulted = 3 [default = 1.0];
+  repeated float repeated = 4 [packed = true];
+}
+
+message Int32 {
+  option (polybuf.message) = {rootable : true};
+  required int32 required = 1;
+  optional int32 optional = 2;
+  optional int32 defaulted = 3 [default = 1];
+  repeated int32 repeated = 4 [packed = true];
+}
+
+message Int64 {
+  option (polybuf.message) = {rootable : true};
+  required int64 required = 1;
+  optional int64 optional = 2;
+  optional int64 defaulted = 3 [default = 1];
+  repeated int64 repeated = 4 [packed = true];
+}
+
+message Message {
+  option (polybuf.message) = {rootable : true};
+  required Bool required = 1;
+  optional Bool optional = 2;
+  // optional Bool defaulted = 3; // default specifications not allowed for message fields
+  repeated Bool repeated = 4;
+}
+
+message NestedMessage {
+  option (polybuf.message) = {rootable : true};
+  message Nest {
+    option (polybuf.message) = {rootable : true};
+    required string s = 1;
+  }
+
+  required Nest required = 1;
+  optional Nest optional = 2;
+  // optional Nest defaulted = 3; // default specifications not allowed for message fields
+  repeated Nest repeated = 4;
+}
+
+message Sfixed32 {
+  option (polybuf.message) = {rootable : true};
+  required sfixed32 required = 1;
+  optional sfixed32 optional = 2;
+  optional sfixed32 defaulted = 3 [default = -1];
+  repeated sfixed32 repeated = 4 [packed = true];
+}
+
+message Sfixed64 {
+  option (polybuf.message) = {rootable : true};
+  required sfixed64 required = 1;
+  optional sfixed64 optional = 2;
+  optional sfixed64 defaulted = 3 [default = -1];
+  repeated sfixed64 repeated = 4 [packed = true];
+}
+
+message Sint32 {
+  option (polybuf.message) = {rootable : true};
+  required sint32 required = 1;
+  optional sint32 optional = 2;
+  optional sint32 defaulted = 3 [default = -1];
+  repeated sint32 repeated = 4 [packed = true];
+}
+
+message Sint64 {
+  option (polybuf.message) = {rootable : true};
+  required sint64 required = 1;
+  optional sint64 optional = 2;
+  optional sint64 defaulted = 3 [default = -1];
+  repeated sint64 repeated = 4 [packed = true];
+}
+
+// messes up generated java code to call this plain "String"
+message String1 {
+  option (polybuf.message) = {rootable : true};
+  required string required = 1;
+  optional string optional = 2;
+  optional string defaulted = 3 [default = "default"];
+  repeated string repeated = 4;
+}
+
+message Uint32 {
+  option (polybuf.message) = {rootable : true};
+  required uint32 required = 1;
+  optional uint32 optional = 2;
+  optional uint32 defaulted = 3 [default = 1];
+  repeated uint32 repeated = 4 [packed = true];
+}
+
+message Uint64 {
+  option (polybuf.message) = {rootable : true};
+  required uint64 required = 1;
+  optional uint64 optional = 2;
+  optional uint64 defaulted = 3 [default = 1];
+  repeated uint64 repeated = 4 [packed = true];
+}
+
+
+

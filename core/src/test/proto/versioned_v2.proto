@@ -1,0 +1,79 @@
+import "polybuf.proto";
+package versioned;
+
+option java_package = "polybuf.core.test";
+option (polybuf.file) = {
+  namespace_uri : "http://www.example.org/polybuf-test/versioned/2"};
+
+// should be able to add repeated or optional fields
+// should be able to delete repeated or optional fields as long as tag number is not used again
+message Fields {
+//  optional string optional_deleted = 1;
+//  repeated string repeated_deleted = 2;
+  optional string missing_optional = 3;
+  repeated string missing_repeated = 4;
+}
+
+// should be able to convert non-required to an extension and vice-versa
+// should be able to convert between optional and repeated
+//   - for primitives, optional side takes the last value from repeated side
+//   - for messages, optional side takes merge of the repeated message fields
+message Optionality {
+  repeated string optional_repeated = 3;
+  extensions 1 to 2;
+}
+
+extend Optionality {
+  optional string optional_extension = 1;
+  repeated string repeated_extension = 2;
+}
+
+// these are all compatible and "you will get the same effect as if you had cast the number to that type in C++"
+message Ints {
+  required uint32 int32_uint32 = 1;
+  required int64 int32_int64 = 2;
+  required uint64 int32_uint64 = 3;
+  required bool int32_bool = 4;
+  required int64 uint32_int64 = 5;
+  required uint64 uint32_uint64 = 6;
+  required bool uint32_bool = 7;
+  required uint64 int64_uint64 = 8;
+  required bool int64_bool = 9;
+  required bool uint64_bool = 10;
+}
+
+message Sints {
+  required sint64 sint32_sint64 = 1;
+}
+
+// strings are compatible with bytes as long as the bytes are utf-8
+message Strings {
+  required bytes string_bytes = 1;
+}
+
+// messages are compatible with bytes as long as bytes contain encoded version of message
+message Messages {
+  message Field {
+    required int32 id = 1;
+    optional string text = 2;
+  }
+  required bytes required = 1;
+  optional bytes optional = 2;
+  // no way to specify defaulted message
+  repeated bytes repeated = 4;
+}
+
+message Fixed32s
+{
+  required sfixed32 fixed32_sfixed32 = 1;
+}
+
+message Fixed64s
+{
+  required sfixed64 fixed64_sfixed64 = 1;
+}
+
+// default can be changed, but you will see the default from your version for unset values
+message Default {
+  optional string defaulted = 1 [default="v2"];
+}

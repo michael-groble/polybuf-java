@@ -1,0 +1,23 @@
+import "polybuf.proto";
+package base;
+
+option java_package = "polybuf.core.test";
+
+option (polybuf.file) = {namespace_uri : "http://www.example.org/polybuf-test/extensions/base"};
+
+message Message1 {
+  option (polybuf.message) = {rootable : true};
+  required string id = 1;
+  extensions 100 to 200;
+}
+
+message Message2 {
+  option (polybuf.message) = {rootable : true};
+  required string id = 1;
+  extensions 100 to 200;
+}
+
+enum Enum1 {
+  A = 0;
+  B = 1;
+}

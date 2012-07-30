@@ -1,0 +1,12 @@
+option java_package = "polybuf.core.test";
+
+message Message1 {
+  required string id = 1;
+}
+
+message Message2 {
+  message Message2A {
+    required string id = 1;
+  }
+  repeated Message2A parts = 1;
+}

@@ -1,0 +1,122 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.github.michael-groble.polybuf</groupId>
+  <artifactId>polybuf-java</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>polybuf-java</name>
+  <url>http://github.com/michael-groble/polybuf-java</url>
+  <description>
+    Polybuf is a library for converting Google protocol buffers to various formats
+    with support for packages, extensions and compatible upgrades.  It also can
+    be used to generate an XML schema representation of a proto file to
+    integrate protobuf-based systems with xml-based systems.
+  </description>
+
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>http://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
+  <inceptionYear>2012</inceptionYear>
+  
+  <scm>
+    <url>https://github.com/michael-groble/polybuf-java</url>
+    <connection>scm:git:git://github.com/michael-groble/polybuf-java.git</connection>
+    <developerConnection>scm:git:ssh://github.com/michael-groble/polybuf-java.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <modules>
+    <module>proto</module>
+    <module>core</module>
+    <module>json</module>
+    <module>xml</module>
+    <module>classifiers</module>
+  </modules>
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>2.4.1</version>
+      </dependency>
+      <dependency>
+	<groupId>com.google.guava</groupId>
+	<artifactId>guava</artifactId>
+	<version>11.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.6</version>
+      </dependency>
+      <dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.10</version>
+	<scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <source>1.6</source>
+          <target>1.6</target>
+          <debug>true</debug>
+          <optimize>true</optimize>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.1.2</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.8.1</version>
+        <configuration>
+          <links>
+            <link>http://developers.google.com/protocol-buffers/docs/reference/java</link>
+            <link>http://docs.guava-libraries.googlecode.com/git-history/release/javadoc</link>
+          </links>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <useReleaseProfile>false</useReleaseProfile>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <tagNameFormat>polybuf-java-@{project.version}</tagNameFormat>
+          <localCheckout>true</localCheckout>
+	  <pushChanges>false</pushChanges>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

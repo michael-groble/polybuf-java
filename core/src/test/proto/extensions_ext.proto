@@ -1,0 +1,36 @@
+import "polybuf.proto";
+import "extensions_base.proto";
+package ext;
+
+option java_package = "polybuf.core.test";
+
+option (polybuf.file) = {namespace_uri : "http://www.example.org/polybuf-test/extensions/ext"};
+
+enum Enum1 {
+  X = 0;
+  Y = 1;
+  Z = 2;
+}
+
+extend base.Message1 {
+  required int32 id = 100;  // note: name clashes with id field in base.Message1
+  optional Enum1 type = 101;
+  optional base.Enum1 base_type = 102;
+}
+
+// protoc compiler error, can't use extension name more than once
+// extend base.Message2 {
+//   required Enum1 type = 100;
+// }
+
+// but this works since ext1.Scope.type is different name than ext1.type
+message Scope {
+  extend base.Message2 {
+    required Enum1 type = 100;
+  }
+}
+
+message Message1 {
+  option (polybuf.message) = {rootable : true};
+  required string id = 1;
+}
